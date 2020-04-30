@@ -10,6 +10,7 @@ import android.widget.Button;
 public class main_menu extends AppCompatActivity {
 
     private Button sign_out;
+    private Button fav_page;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,11 +24,26 @@ public class main_menu extends AppCompatActivity {
                 openhomescreen();
             }
         });
+
+
+        fav_page= (Button) findViewById(R.id.button_fav);
+        fav_page.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openfavorites();
+            }
+        });
+
     }
     public void openhomescreen()
     {
         Intent intent3 = new Intent(this, MainActivity.class);
         startActivity(intent3);
+    }
+    public void openfavorites()
+    {
+        Intent intent6 = new Intent(this, Favorites.class);
+        startActivity(intent6);
     }
 }
 
