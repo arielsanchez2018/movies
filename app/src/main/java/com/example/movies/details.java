@@ -45,6 +45,8 @@ public class details extends AppCompatActivity {
         final String imdb = intent.getStringExtra(main_menu.IMDB); //get imdb from selected movie
         //set up variables for textviews
         final TextView Movie_content = (TextView) findViewById(R.id.movie_content);
+        final TextView Title_content = (TextView) findViewById(R.id.Title_content);
+
         final ImageView  movie_poster = findViewById(R.id.movie_poster);
 
         sign_out3= (Button) findViewById(R.id.menu_signout2);
@@ -56,13 +58,13 @@ public class details extends AppCompatActivity {
         }
     });
 
-        //make API CALL based on imdb code
+        //make the 2nd API CALL based on imdb code
         // Get a RequestQueue
         RequestQueue queue = MySingleton.getInstance(details.this.getApplicationContext()).
                 getRequestQueue();
         String url = "http://www.omdbapi.com/?i=" + imdb + "&apikey=b347b14b";
 
-        Toast.makeText(details.this, "  imdb " + imdb + " ", Toast.LENGTH_LONG).show();
+        //Toast.makeText(details.this, "  imdb " + imdb + " ", Toast.LENGTH_LONG).show();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -73,33 +75,26 @@ public class details extends AppCompatActivity {
                         // String imdb = null;
                         String year = null;
                         String genre = null;
-                        String director = null;
-                        String writer = null;
                         String plot = null;
 
-                        //title = response.getString("name");
 
                         try {
                             title = response.getString("Title");
                             year = response.getString("Year");
                             genre = response.getString("Genre");
-                            director = response.getString("Director");
-                            writer = response.getString("Writer");
                             plot = response.getString("Plot");
                             poster = response.getString("Poster");
 
+                            Title_content.setText(title);
 
-                            String detailsString = "Title: " + title + "\n" +
-                                    "Year: " + year + "\n" +
+                            String detailsString = "Year: " + year + "\n" +
                                     "Genre: " + genre + "\n" +
-                                    "Director: " + director + "\n" +
-                                    "Writer: " + writer + "\n" +
                                     "Plot: " + plot;
                             Movie_content.setText(detailsString);
 
                             Picasso.get().load(poster).into(movie_poster);
 
-                            Toast.makeText(details.this,detailsString, Toast.LENGTH_LONG).show();
+                            //Toast.makeText(details.this,detailsString, Toast.LENGTH_LONG).show();
 
 
                         } catch (JSONException e) {
@@ -111,7 +106,7 @@ public class details extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         //TODO: Handle error
-                        Toast.makeText(details.this, "Search Failed!", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(details.this, "Search Failed!", Toast.LENGTH_LONG).show();
 
                     }
                 });

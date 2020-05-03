@@ -25,24 +25,39 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class main_menu extends AppCompatActivity {
     public static final String IMDB = "com.example.movies.IMDB";
+    private Button sign_out2;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
+        Intent intent = getIntent();
+        String text = intent.getStringExtra(MainActivity.EXTRA_TEXT);
+
+        TextView user = (TextView) findViewById(R.id.textView7);
+
+        user.setText("Hi " + text);
+
+        sign_out2= (Button) findViewById(R.id.menu_signout);
+
+        sign_out2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openhomescreen3();
+            }
+        });
     }
 
 
 
     public void button(View v){
-       // view = v;
-        //String cname = input.getText().toString();
 
         //set up listview
 
@@ -53,17 +68,12 @@ public class main_menu extends AppCompatActivity {
 
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        /*String cname = "miami";
-        String prefix = "https://api.openweathermap.org/data/2.5/weather?q=";
-        String postfix = "&appid=64a794205221a09cec0b19f3b6743077&units=metric"; */
 
         EditText ed1 = (EditText) findViewById(R.id.text_search);
         String searchSt = ed1.getText().toString();
 
-        //String url = prefix + cname + postfix;
         String url = "http://www.omdbapi.com/?s=" + searchSt + "&apikey=b347b14b";
 
-        final TextView t = (TextView) findViewById(R.id.textView8);
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -91,7 +101,7 @@ public class main_menu extends AppCompatActivity {
                             menu_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    Toast.makeText(main_menu.this, "clicked item " + position + " with imdb " + imdblist.get(position) + " " + titles.get(position), Toast.LENGTH_LONG).show();
+                                    //Toast.makeText(main_menu.this, "clicked item " + position + " with imdb " + imdblist.get(position) + " " + titles.get(position), Toast.LENGTH_LONG).show();
                                     //go to movie details (details.java) and send the imdb code to make a 2nd API CALL from there
                                     //intent.putExtra(USER, userJSON); //also send USER
                                     intent.putExtra(IMDB, imdblist.get(position));
@@ -100,20 +110,6 @@ public class main_menu extends AppCompatActivity {
                             });
 
 
-
-                            /*JSONObject c = response.getJSONObject("coord");
-
-                            //JSONObject main = response.getJSONObject("main");
-                            String cn = response.getString("name");
-                            String temp = main.getString("temp");
-                            t.setText("The weather in " + cn + " is " + temp + "°C");
-                            //String toSpeak = "The weather in " + cn + " is " + temp + " degrees celsius";
-                            double lat = c.getDouble("lat");
-                            double lon = c.getDouble("lon");
-                            */
-
-                            //Toast.makeText(main_menu.this, main.toString(), Toast.LENGTH_SHORT).show();
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -121,12 +117,19 @@ public class main_menu extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                t.setText("Error Obtaining Movies ");
+
             }
         });
         JsonObjectRequest r = jsonObjReq;
         queue.add(jsonObjReq);
     }
+
+    public void openhomescreen3()
+    {
+        Intent intent5 = new Intent(this, MainActivity.class);
+        startActivity(intent5);
+    }
+
 
 }
 
