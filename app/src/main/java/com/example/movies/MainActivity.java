@@ -6,45 +6,56 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button button;
+    private EditText username, password;
+
     private Button log_in;
+
+    /*
+        private RequestQueue requestQueue;
+        private static final String URL = "http://localhost/project/user_control.php";
+        private StringRequest request;
+    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_screen);
 
-        button= (Button) findViewById(R.id.sign_up);
-        button.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            openactivity_sign_in();
-        }
-    });
+        log_in = (Button) findViewById(R.id.log_in);
 
-        log_in= (Button) findViewById(R.id.log_in);
         log_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openmain_menu();
+
             }
         });
+    }
+        public void openmain_menu()
+        {
+            Intent intent2 = new Intent(this, main_menu.class);
+            startActivity(intent2);
+        }
 
 }
 
-    public void openactivity_sign_in()
-    {
-        Intent intent = new Intent(this, sign_in.class);
-        startActivity(intent);
-    }
 
-
-    public void openmain_menu()
-    {
-        Intent intent2 = new Intent(this, main_menu.class);
-        startActivity(intent2);
-    }
-}

@@ -20,10 +20,17 @@ android {
 }
 
 dependencies {
+    implementation 'com.android.volley:volley:1.1.1'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    //compile files('libs/gson-2.2.4.jar', 'libs/gson-2.2.4-javadoc.jar', 'libs/gson-2.2.4-javadoc.jar')
+/*
+    implementation 'com.mcxiaoke.volley:library:1.0.19'
+    implementation 'com.android.support:design:23.1.0'  */
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
 }
